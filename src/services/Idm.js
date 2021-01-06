@@ -5,8 +5,8 @@ const { loginEP, registerEP } = idmEPs;
 
 async function login(name, password) {
   const payLoad = {
-    name: name,
-    password: password
+    uname: name,
+    upw: password
   };
 
   return await Socket.POST(loginEP, payLoad);
