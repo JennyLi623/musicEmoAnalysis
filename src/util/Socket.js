@@ -37,13 +37,13 @@ async function sendHTTP(method, path, data) {
   switch (method) {
     case HTTPMethod.GET:
       response = await Axios.get(path);
-      break;
+      return response;
     case HTTPMethod.POST:
       response = await Axios.post(path, data);
-      break;
+      return response;
     case HTTPMethod.DELETE:
       response = await Axios.delete(path);
-      break;
+      return response;
     default:
     // Should never reach here
   }
