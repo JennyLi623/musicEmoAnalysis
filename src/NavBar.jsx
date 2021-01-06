@@ -14,11 +14,9 @@ class NavBar extends Component {
         <Navbar.Brand to="/">爱么音乐</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav.Link className="mr-auto">
-            <Link to="/faq" style={{"color": "#77797e"}}>
+          <NavLink to="/faq" className="navbar-nav nav-link mr-auto" style={{"color": "#999999"}}>
               项目介绍
-            </Link>
-          </Nav.Link>
+          </NavLink>
           {/*
             <Nav className="mr-auto">
             <NavDropdown title="项目介绍" id="basic-nav-dropdown">
@@ -31,18 +29,14 @@ class NavBar extends Component {
         }
           <Nav>
             {!loggedIn &&
-              <Nav.Link>
-                <Link to="/login" style={{"color": "inherit"}}>
+                <NavLink to="/login" className="nav-link">
                   登录
-                </Link>
-              </Nav.Link>
+                </NavLink>
             }
             {!loggedIn &&
-              <Nav.Link>
-                <Link to="/register" style={{"color": "inherit"}}>
-                  注册
-                </Link>
-              </Nav.Link>
+              <NavLink to="/register" className="nav-link">
+                注册
+              </NavLink>
             }
             {loggedIn &&
                 <Nav.Link>{"你好，"+name}</Nav.Link>
