@@ -1,0 +1,72 @@
+import React, { Component } from "react";
+import Cookies from "js-cookie";
+import Axios from "axios";
+
+import NavBar from "./NavBar";
+import Content from "./Content";
+import Movies from "./services/Movies";
+
+class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      // loggedIn: this.checkedLoggedIn()
+      loggedIn: false,
+      params: {},
+      movies: []
+    };
+    this.handleMovieSearch = this.handleMovieSearch.bind(this);
+
+  }
+
+  handleLogIn = (email, session_id) => {
+    const { common } = Axios.defaults.headers;
+
+    Cookies.set("email", email);
+    Cookies.set("session_id", session_id);
+
+    common["email"] = email;
+    common["session_id"] = session_id;
+
+    this.setState({ loggedIn: true });
+    console.log(this.state.loggedIn);
+  };
+
+  handleLogOut = () => {
+    const { common } = Axios.defaults.headers;
+
+    Cookies.remove("email");
+    Cookies.remove("session_id");
+
+    delete common["email"];
+    delete common["session_id"];
+
+    this.setState({ loggedIn: false });
+  };
+
+   handleMovieSearch = (params, offset) => {
+    console.log(params);
+    this.setState({params: params});
+  };
+
+  checkedLoggedIn() {
+    console.log("email");
+    console.log("session_id");
+    return (
+      //Cookies.get("email") !== undefined &&
+      //Cookies.get("session_id") !== undefined
+    true);
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <NavBar handleLogOut={this.handleLogOut} loggedIn={this.state.loggedIn} />
+        <Content handleLogOut={this.handleLogOut} handleLogIn={this.handleLogIn} handleMovieSearch={this.handleMovieSearch} params={this.state.params} movieList={this.state.movies} loggedIn={this.state.loggedIn}/>
+      </div>
+    );
+  }
+}
+
+export default App;

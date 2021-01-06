@@ -1,0 +1,25 @@
+{
+  "baseUrl": "https://musicemotion.herokuapp.com",
+  "pollLimit": 20,
+  "gatewayEPs": {
+    "reportEP": "/report"
+  },
+  "idmEPs": {
+    "loginEP": "/login",
+    "registerEP": "/idm/register"
+  },
+  "moviesEPs": {
+    "searchEP": "/movies/search",
+    "browseEP": "/movies/browse/",
+    "getEP": "/movies/get/"
+  },
+  "billingEPs": {
+    "cartInsertEP": "/billing/cart/insert",
+    "cartUpdateEP": "/billing/cart/update",
+    "cartDeleteEP": "/billing/cart/delete",
+    "cartRetrieveEP": "/billing/cart/retrieve",
+    "cartClearEP": "/billing/cart/clear",
+    "orderPlaceEP": "/billing/order/place",
+    "orderRetrieveEP": "/billing/order/retrieve"
+  }
+}
