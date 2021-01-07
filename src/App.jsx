@@ -14,22 +14,19 @@ class App extends Component {
       // loggedIn: this.checkedLoggedIn()
       loggedIn: false,
       params: {},
-      movies: []
+      movies: [],
+      name: "",
+      exp_num: 0,
     };
     this.handleMovieSearch = this.handleMovieSearch.bind(this);
 
   }
 
-  handleLogIn = (email, session_id) => {
-    const { common } = Axios.defaults.headers;
-
-    Cookies.set("email", email);
-    Cookies.set("session_id", session_id);
-
-    common["email"] = email;
-    common["session_id"] = session_id;
+  handleLogIn = (name, exp_num) => {
 
     this.setState({ loggedIn: true });
+    this.setState({ name: name });
+    this.setState({ exp_num: exp_num });
     console.log(this.state.loggedIn);
   };
 
@@ -62,8 +59,8 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <NavBar handleLogOut={this.handleLogOut} loggedIn={this.state.loggedIn} />
-        <Content handleLogOut={this.handleLogOut} handleLogIn={this.handleLogIn} handleMovieSearch={this.handleMovieSearch} params={this.state.params} movieList={this.state.movies} loggedIn={this.state.loggedIn}/>
+        <NavBar handleLogOut={this.handleLogOut} loggedIn={this.state.loggedIn} name={this.state.name} />
+        <Content handleLogOut={this.handleLogOut} handleLogIn={this.handleLogIn} handleMovieSearch={this.handleMovieSearch} params={this.state.params} movieList={this.state.movies} loggedIn={this.state.loggedIn} expNum={this.state.exp_num}/>
       </div>
     );
   }

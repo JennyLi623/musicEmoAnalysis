@@ -10,7 +10,7 @@ import Faq from "./pages/Faq";
 
 class Content extends Component {
   render() {
-    const { handleLogOut, handleLogIn, handleRegister, handleMovieSearch, movieList, handleMoviePage, params, loggedIn } = this.props;
+    const { handleLogOut, handleLogIn, handleRegister, handleMovieSearch, movieList, handleMoviePage, params, loggedIn, expNum } = this.props;
     console.log(params);
     if (loggedIn == false) {
       return (

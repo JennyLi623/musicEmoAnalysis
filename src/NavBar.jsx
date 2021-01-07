@@ -7,8 +7,7 @@ import "./css/style.css";
 
 class NavBar extends Component {
   render() {
-    const { handleLogOut, loggedIn } = this.props;
-    var name = "張三";
+    const { handleLogOut, loggedIn, name } = this.props;
     return (
       <Navbar style={{background: "#141a20"}} variant="dark" expand="lg">
         <Navbar.Brand to="/">爱么音乐</Navbar.Brand>

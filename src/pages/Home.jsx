@@ -132,7 +132,7 @@ class Home extends Component {
               以供实验对比。<br />
               该V-A值将在之后用来调整算法，不会影响本轮音乐推荐。<br/><br/>
 
-              这是您的第<span className="numOfTest">1</span> 轮测试
+              这是您的第<span className="numOfTest">{this.props.expNum}</span> 轮测试
           </p>
           <div>
 

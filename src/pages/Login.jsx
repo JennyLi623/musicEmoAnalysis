@@ -18,7 +18,7 @@ class Login extends Component {
       .then(response => {
         console.log(response);
         if (response !== undefined){
-          handleLogIn(name, "");
+          handleLogIn(name, response.data.exp_num + 1);
         }else{
           alert("User not exist, please register!");
         }
