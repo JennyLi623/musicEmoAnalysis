@@ -113,8 +113,34 @@ class Faq extends Component {
             <img src={VAbg} width={this.state.imgWidth} height={this.state.imgHeight} alt="Valence-arousal background"/>
           </div>
           }
-
         </div>
+        <br />
+        <div className="faq-block">
+          <p className="faq-title" onClick={() => this.ifShowContent(3)}>
+            如何描述音乐相关的记忆/情绪
+          </p>
+          {this.state.questions[3] &&
+            <div>
+            <p className="faq-content">
+            实验的其中一个重点是记忆如何影响人对音乐的认知，<br/>
+            因此我们希望您能在听音乐时尽可能多地描述您被音乐唤起的记忆、情绪，<br/>
+            这将对研究的数据搜集有很大帮助。<br/>
+            <br/>
+            描述记忆时，<br/>
+            我们希望您能在开头一两句话内简洁直白地描述您当时的情绪。<br />
+            （例：这首歌激励我度过最艰难的时期，如今每次听见都还备受鼓舞 <br />
+            / 听这首歌时还是中学，如今大家天各一方，真让人难过）<br/>
+            在进行这项描述后，<br />
+            您可以选择是否继续详细描述您回忆中的细节。
+            <br/>
+            <br/>
+            与听完音乐后采集的情绪反馈不同，<br/>
+            您的回忆将在一定程度上影响之后歌曲的推荐走向。<br/><br/>
+          </p>
+          </div>
+        }
+        </div>
+        <br/>
       </div>
     );
   }

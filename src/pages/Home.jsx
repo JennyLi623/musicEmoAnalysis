@@ -40,24 +40,24 @@ class Home extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     if (this.props.loggedIn === true && this.props.musicNum > 0) {
-      console.log(this.props.musicNum);
+      //console.log(this.props.musicNum);
       this.setState({left: (5 + this.props.v) * Math.min(800, window.innerWidth) / 10 - 10});
       this.setState({top: (10 - this.props.a) * Math.min(800, window.innerWidth) / 10 - 10});
       this.setState({step: (this.props.musicNum + 1) * 2});
       this.setState({songnum: this.props.musicNum + 1});
       this.setState({url: this.props.murl});
       this.setState({mid: this.props.mid});
-      console.log(this.props.v * Math.min(800, window.innerWidth) / 10);
-      console.log(this.props.a * Math.min(800, window.innerWidth) / 10);
-      console.log((this.props.musicNum + 1) * 2 );
+      //console.log(this.props.v * Math.min(800, window.innerWidth) / 10);
+      //console.log(this.props.a * Math.min(800, window.innerWidth) / 10);
+      //console.log((this.props.musicNum + 1) * 2 );
     }
-    console.log(this.props.endDate);
-    console.log(this.props.endDate === null);
+    //console.log(this.props.endDate);
+    //console.log(this.props.endDate === null);
 
     this.setState({needNewDate: true});
     var date = new Date();
     date.setDate(date.getDate() + 8);
-    console.log(date);
+    //console.log(date);
     this.setState({newDate: date});
     window.addEventListener('resize', this.updateWindowDimensions);
   }
@@ -70,21 +70,21 @@ class Home extends Component {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
     if (window.innerWidth >= 820) {
       this.setState({canvasWidth: 800});
-      console.log("window.innerWidth: " + window.innerWidth + "  canvasWidth: " + 800);
+      //console.log("window.innerWidth: " + window.innerWidth + "  canvasWidth: " + 800);
     }
     else{
       this.setState({canvasWidth: window.innerWidth - 20});
-      console.log("window.innerWidth: " + window.innerWidth + "  canvasWidth: " + window.innerWidth);
+      //console.log("window.innerWidth: " + window.innerWidth + "  canvasWidth: " + window.innerWidth);
     }
 
   }
 
   startNewExperiment = (v, a) => {
-    console.log("in startNewExperiment");
-    console.log(this.props.endDate);
+    //console.log("in startNewExperiment");
+    //console.log(this.props.endDate);
     Experiment.start(this.props.uId, this.props.expNum, v, a)
       .then(response => {
-        console.log(response);
+        //console.log(response);
         if (response !== undefined){
           this.setState({url: response.data.murl});
           this.setState({mid: response.data.mid});
@@ -99,7 +99,7 @@ class Home extends Component {
   recordEachMusic = (v, a, rate, fam) => {
     Experiment.musicUpdate(parseInt(this.props.uId), parseInt(this.props.expNum), this.state.songnum - 1, parseInt(this.state.mid), v, a, parseInt(rate), parseInt(fam))
       .then(response => {
-        console.log(response);
+        //console.log(response);
         if (response !== undefined){
           this.setState({url: response.data.murl});
           this.setState({mid: response.data.mid});
@@ -117,7 +117,7 @@ class Home extends Component {
   };
 
   processVA = (top, left, v, a, rate, fam) => {
-    console.log("processVA");
+    //console.log("processVA");
     if (this.state.step === 1) {
       this.setState({
         initop: top,
@@ -137,7 +137,7 @@ class Home extends Component {
         rate: rate,
         fam: fam,
       });
-      console.log(v + " " + a + " " + rate + " " + fam)
+      //console.log(v + " " + a + " " + rate + " " + fam)
       this.recordEachMusic(v, a, rate, fam);
     }
   }
@@ -158,7 +158,7 @@ class Home extends Component {
     if (this.state.overallRate > 0 && this.state.favorite > 0) {
       Experiment.expEnd(parseInt(this.props.uId), parseInt(this.props.expNum), this.state.v, this.state.a, parseInt(this.state.favorite), parseInt(this.state.overallRate))
       .then(response => {
-        console.log(response);
+        //console.log(response);
       })
       this.props.handleLogOut();
     }else {
@@ -189,6 +189,15 @@ class Home extends Component {
           <br />
           <br />
           <h3><Link to="/login">点击此处登录网页</Link></h3>
+          <br />
+          <br />
+          <h3><Link to="/register">点击此处注册账号</Link></h3>
+          <br />
+          <br />
+          <br />
+          <br />
+          <h5>咨询相关信息，请加微信 ljy1297745191</h5>
+          <h5>联系管理员</h5>
         </div>
       );
     }
