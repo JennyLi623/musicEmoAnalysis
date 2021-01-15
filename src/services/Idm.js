@@ -12,12 +12,18 @@ async function login(name, password) {
   return await Socket.POST(loginEP, payLoad);
 }
 
-async function register(email, password) {
+async function register(uname, password, utype, profession, age, gender, expertise, love_level) {
   const payLoad = {
-    email: email,
-    password: password.split("")
+    uname: uname,
+    upw: password,
+    utype: parseInt(utype),
+    profession: profession,
+    age: parseInt(age),
+    gender: parseInt(gender),
+    expertise: parseInt(expertise),
+    love_level: parseInt(love_level)
   };
-
+  //console.log(payLoad);
   return await Socket.POST(registerEP, payLoad);
 }
 

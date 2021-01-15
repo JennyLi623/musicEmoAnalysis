@@ -3,16 +3,13 @@ import { Route, Switch } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Movies from "./pages/Movies";
-import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import Faq from "./pages/Faq";
 
 class Content extends Component {
   render() {
-    const { handleLogOut, handleLogIn, handleRegister, handleMovieSearch, movieList, handleMoviePage, params, loggedIn, expNum } = this.props;
-    console.log(params);
-    if (loggedIn == false) {
+    const { handleLogOut, handleLogIn, handleRegister, loggedIn } = this.props;
+    if (!loggedIn) {
       return (
         <div className="content">
           <Switch>
@@ -30,34 +27,22 @@ class Content extends Component {
             />
             <Route
               path="/"
-              component={props => <Home handleMovieSearch={handleMovieSearch} {...this.props} />}
+              component={props => <Home {...this.props} />}
             />
           </Switch>
         </div>
       );
     };
     return (
-      <div>
+      <div  className="content">
         <Switch>
           <Route
-            path="/login"
-            component={props => <Login handleLogIn={handleLogIn} {...this.props} />}
-          />
-          <Route
-            path="/register"
-            component={props => <Register handleRegister={handleRegister} {...this.props} />}
-          />
-          <Route
-            path="/movies"
-            component={props => <Movies handleMoviePage={handleMoviePage} movieList={movieList} params={params} />}
-          />
-          <Route
-            path="/cart"
-            component={props => <Cart />}
+            path="/faq"
+            component={props => <Faq {...this.props} />}
           />
           <Route
             path="/"
-            component={props => <Home handleLogOut={handleLogOut} handleMovieSearch={handleMovieSearch} {...this.props} />}
+            component={props => <Home handleLogOut={handleLogOut} {...this.props} />}
           />
         </Switch>
       </div>

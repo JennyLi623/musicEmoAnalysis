@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Idm from "../services/Idm";
+import Experiment from "../services/Experiment.js";
 import {Link} from 'react-router-dom';
 import VAcanvas from './VAcanvas.jsx';
 import MP3 from './MP3.jsx';
@@ -22,15 +22,43 @@ class Home extends Component {
       width: 0,
       height: 0,
       canvasWidth: 0,
-      songs: ["song1", "song2", "song3", "song4"],
+      songs: ["第1首", "第2首", "第3首", "第4首"],
       favorite: -1,
-      overallRate: -1
+      overallRate: -1,
+      v: -10,
+      a: -10,
+      mid: -1,
+      url: "",
+      rate: -1,
+      fam: -1,
+      needNewDate: false,
+      newDate: new Date()
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   componentDidMount() {
     this.updateWindowDimensions();
+    if (this.props.loggedIn === true && this.props.musicNum > 0) {
+      console.log(this.props.musicNum);
+      this.setState({left: (5 + this.props.v) * Math.min(800, window.innerWidth) / 10 - 10});
+      this.setState({top: (10 - this.props.a) * Math.min(800, window.innerWidth) / 10 - 10});
+      this.setState({step: (this.props.musicNum + 1) * 2});
+      this.setState({songnum: this.props.musicNum + 1});
+      this.setState({url: this.props.murl});
+      this.setState({mid: this.props.mid});
+      console.log(this.props.v * Math.min(800, window.innerWidth) / 10);
+      console.log(this.props.a * Math.min(800, window.innerWidth) / 10);
+      console.log((this.props.musicNum + 1) * 2 );
+    }
+    console.log(this.props.endDate);
+    console.log(this.props.endDate === null);
+
+    this.setState({needNewDate: true});
+    var date = new Date();
+    date.setDate(date.getDate() + 8);
+    console.log(date);
+    this.setState({newDate: date});
     window.addEventListener('resize', this.updateWindowDimensions);
   }
 
@@ -51,27 +79,67 @@ class Home extends Component {
 
   }
 
-  handleSubmit = e => {
-    this.props.handleMovieSearch(this.state, this.state.offset);
+  startNewExperiment = (v, a) => {
+    console.log("in startNewExperiment");
+    console.log(this.props.endDate);
+    Experiment.start(this.props.uId, this.props.expNum, v, a)
+      .then(response => {
+        console.log(response);
+        if (response !== undefined){
+          this.setState({url: response.data.murl});
+          this.setState({mid: response.data.mid});
+          this.setState({step: this.state.step + 1});
+        }else{
+          alert("User not exist, please register!");
+        }
+      })
+      .catch(error => console.log(error));
   };
+
+  recordEachMusic = (v, a, rate, fam) => {
+    Experiment.musicUpdate(parseInt(this.props.uId), parseInt(this.props.expNum), this.state.songnum - 1, parseInt(this.state.mid), v, a, parseInt(rate), parseInt(fam))
+      .then(response => {
+        console.log(response);
+        if (response !== undefined){
+          this.setState({url: response.data.murl});
+          this.setState({mid: response.data.mid});
+          this.setState({step: this.state.step + 1});
+        }else{
+          alert("Something wrong with musicUpdate, please check!");
+        }
+      })
+      .catch(error => console.log(error));
+  }
 
   updateField = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   };
 
-  processVA = (top, left) => {
+  processVA = (top, left, v, a, rate, fam) => {
+    console.log("processVA");
     if (this.state.step === 1) {
       this.setState({
         initop: top,
-        inileft: left
-      });
-    }
-    this.setState({
-        step: this.state.step + 1,
+        inileft: left,
         top: top,
-        left: left
+        left: left,
+        v: v,
+        a: a,
       });
+      this.startNewExperiment(v, a);
+    } else {
+      this.setState({
+        top: top,
+        left: left,
+        v: v,
+        a: a,
+        rate: rate,
+        fam: fam,
+      });
+      console.log(v + " " + a + " " + rate + " " + fam)
+      this.recordEachMusic(v, a, rate, fam);
+    }
   }
 
   selectOverallRate = (e) => {
@@ -88,7 +156,11 @@ class Home extends Component {
 
   endTest = () => {
     if (this.state.overallRate > 0 && this.state.favorite > 0) {
-        this.props.handleLogOut();
+      Experiment.expEnd(parseInt(this.props.uId), parseInt(this.props.expNum), this.state.v, this.state.a, parseInt(this.state.favorite), parseInt(this.state.overallRate))
+      .then(response => {
+        console.log(response);
+      })
+      this.props.handleLogOut();
     }else {
       if (this.state.overallRate < 0) {
         this.setState({overallRate: 0});
@@ -108,8 +180,15 @@ class Home extends Component {
   render() {
     if(this.props.loggedIn === false) {
       return(
-        <div>
+        <div style={{"textAlign": "center"}}>
           <h1>请先登录或者注册，谢谢！</h1>
+          <br />
+          <br />
+          <br />
+          <h3><Link to="/faq">点击此处阅读实验介绍</Link></h3>
+          <br />
+          <br />
+          <h3><Link to="/login">点击此处登录网页</Link></h3>
         </div>
       );
     }
@@ -117,26 +196,45 @@ class Home extends Component {
       return(
         <div className="mainPage">
         <div className="introclass">
-          <p className='sTitle'>测试入口</p>
+          <p className='sTitle'>实验入口</p>
+          {this.props.expNum <= 5 &&
           <p className="intro">
-              本测试旨在测试音乐对人情绪的影响。<br/>
-              测试将分为<span className="numOfTest">5</span> 轮进行，
+              本实验旨在测试音乐对人情绪的影响。<br/>
+              实验将分为<span className="numOfTest">5</span> 轮进行，
               {this.state.width >=600 && <br/>}
-              我们希望您在<span className="numOfTest">1</span> 天之中完成不多余<span className="numOfTest">1</span> 轮测试，{this.state.width >=600 && <br/>}
-              并在<span className="numOfTest">10</span> 天之内完成所有测试。<br/>
-              每<span className="numOfTest">1</span> 轮测试开始前我们都将请您输入您当下的情绪数据（采用V-A模型），{this.state.width >=600 && <br/>}
+              我们希望您在<span className="numOfTest">1</span> 天之中完成不多余<span className="numOfTest">1</span> 轮实验，{this.state.width >=600 && <br/>}
+              并在<span className="numOfTest">7</span> 天之内完成所有实验。<br/>
+              每<span className="numOfTest">1</span> 轮实验开始前我们都将请您输入您当下的情绪数据（采用<Link to="/faq">V-A模型</Link>），{this.state.width >=600 && <br/>}
               之后您将听到<span className="numOfTest">4</span> 首不同的钢琴曲。<br/>
               如果音乐唤起了您的部分记忆或情绪，{this.state.width >=600 && <br/>}
-              我们希望您能在网页提供的输入框内简单输入。<br/>
+              我们希望您能在网页提供的输入框内简洁直白地描述，<br/>
+              这将对我们实验中研究记忆如何影响我们对于音乐的理解有极大帮助。<br/>
               在每首钢琴曲结束之后，我们同样会使用V-A模型来采取您情绪变化的数据，{this.state.width >=600 && <br/>}
               以供实验对比。<br />
               该V-A值将在之后用来调整算法，不会影响本轮音乐推荐。<br/><br/>
 
-              这是您的第<span className="numOfTest">{this.props.expNum}</span> 轮测试
-          </p>
-          <div>
+              请您在实验开始后不要离开这个页面直至结束。<br/>
+              如需离开，请您在返回时务必重新登录。<br/>
+              如果您在本轮实验开始后的3个小时内重新登录，<br/>
+              您将可以继续实验中未完成的部分。<br/>
+              如果超过3个小时，
+              则本轮实验的记录将清空，您需重新开始本轮实验。<br/>
+              <br/>
+              <br/>
 
+            这是您的第<span className="numOfTest">{this.props.expNum}</span>轮实验</p>
+          }
+          {this.props.expNum > 5 &&
+            <p  className="intro">您已完成所有实验，我们衷心感谢您的支持与帮助！</p>
+          }
+
+          <div>
+          {this.props.expNum <= 5 &&
             <Button className="testButtonDisplay" onClick={() => this.startTest()}>开始试验</Button>
+          }
+          {this.props.expNum > 5 &&
+            <Button className="testButtonDisplay" onClick={() => this.props.handleLogOut()}>退出登录</Button>
+          }
           </div>
         </div>
         </div>
@@ -146,8 +244,8 @@ class Home extends Component {
       return(
         <div className="mainPage">
           <div className="introclass">
-            <p className='sTitle'>恭喜您，完成本轮测试</p>
-            <p className='hint'>当前测试进度为 3 / 5， <br /><br />请于10月6日之前完成剩余部分</p>
+            <p className='sTitle'>恭喜您，完成本轮实验</p>
+            <p className='hint'>当前实验进度为 {this.props.expNum} / 5， <br /><br />请于{isNaN(this.props.endDate.getMonth()) ? this.state.newDate.getMonth() + 1 : this.props.endDate.getMonth() + 1}月{isNaN(this.props.endDate.getDate()) ? this.state.newDate.getDate() : this.props.endDate.getDate()}日之前完成剩余部分</p>
             <div style={{display: "block"}}>
               {this.state.favorite === 0 &&
                 <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择本轮您最满意的曲目：</p>
@@ -192,7 +290,7 @@ class Home extends Component {
       return(
         <div className="mainPage">
           <div className="inTest">
-          <p className='sTitle'>恭喜您已完成本次测试的听歌部分，<br />请完成以下问卷以结束测试：</p>
+          <p className='sTitle'>恭喜您已完成本次实验的听歌部分，<br />请完成以下问卷以结束实验：</p>
           <div style={{display: "block", width: this.state.canvasWidth+"px", margin: "auto"}}>
           {/*
           <VAcanvas width={this.state.canvasWidth} endTest = {this.endTest} step={this.state.step} display="inherit" top={this.state.top === -50? this.state.initop : this.state.top} left={this.state.left === -50? this.state.inileft : this.state.left}}/>
@@ -220,7 +318,7 @@ class Home extends Component {
           <div className="inTest">
             <p className='sTitle'>请听歌曲 {this.state.songnum}/ 4</p>
             <div style={{display: "block", width: this.state.canvasWidth+"px", margin: "auto"}}>
-              <MP3 width={this.state.canvasWidth} audioEnd = {this.audioEnd}/>
+              <MP3 width={this.state.canvasWidth} audioEnd = {this.audioEnd} url={this.state.url} expNum={this.props.expNum} songNum={this.state.songnum} uId={this.props.uId}/>
             </div>
           </div>
         </div>

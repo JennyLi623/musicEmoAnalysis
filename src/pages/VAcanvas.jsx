@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Idm from "../services/Idm";
 import "../css/common.css";
-import {Link} from 'react-router-dom';
 import VAbg from '../imgs/va model.png';
 import RDot from '../imgs/red-dot.png';
 import BDot from '../imgs/blue-dot.png';
@@ -23,10 +21,12 @@ class VAcanvas extends Component {
       rdotdisplay: "none",
       color: "#666666",
       rate: 0,
+      fam: 0,
       favorite: 0,
       overallRate: 0,
       canvasNotFilled: false,
-      rateNotFilled: false
+      rateNotFilled: false,
+      famNotFilled: false,
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -55,18 +55,6 @@ class VAcanvas extends Component {
     }
   }
 
-  handleSubmit = e => {
-
-    const { handleLogIn } = this.props;
-    const { email, password } = this.state;
-
-    Idm.register(email, password)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => console.log(error));
-  };
-
   updateField = ({ target }) => {
     const { name, value } = target;
 
@@ -76,6 +64,11 @@ class VAcanvas extends Component {
   selectRate = (e) => {
     this.setState({rate: e.target.value});
     this.setState({rateNotFilled: false});
+  }
+
+  selectFam = (e) => {
+    this.setState({fam: e.target.value});
+    this.setState({famNotFilled: false});
   }
 
   onMouseMove = (e) => {
@@ -93,15 +86,17 @@ class VAcanvas extends Component {
   }
 
   handleButtonClick = () => {
+    console.log("handleButtonClick");
     if (this.state.val1x < -5 || this.state.val1x > 5 || this.state.val1y < 0 || this.state.val1x > 10) {
       this.setState({canvasNotFilled: true});
       this.setState({color: "#dd0000"});
     }
-    if (this.props.step > 1 && this.state.rate == 0) {
+    if (this.props.step > 1 && this.state.rate === 0) {
       this.setState({rateNotFilled: true});
     }
-    if ((this.state.val1x >= -5 && this.state.val1x <= 5 && this.state.val1y >= 0 && this.state.val1y <= 10) && (this.props.step == 1 || this.state.rate != 0)) {
-      this.props.processVA(this.state.y1, this.state.x1);
+    if ((this.state.val1x >= -5 && this.state.val1x <= 5 && this.state.val1y >= 0 && this.state.val1y <= 10) && (this.props.step === 1 || this.state.rate !== 0)) {
+      console.log(this.state.val1x + this.state.val1x);
+      this.props.processVA(this.state.y1, this.state.x1, this.state.val1x, this.state.val1y, this.state.rate, this.state.fam);
     }
 
   }
@@ -110,15 +105,15 @@ class VAcanvas extends Component {
     return (
       <div>
         <div style={{ position: 'relative' }}>
-        <img src={VAbg} onClick={this.onMouseMove.bind(this)} width={this.state.imgWidth} height={this.state.imgHeight}/>
+        <img src={VAbg} onClick={this.onMouseMove.bind(this)} width={this.state.imgWidth} height={this.state.imgHeight} alt="Valence-arousal background"/>
         {(Math.abs(this.state.val1x) <= 5 && Math.abs(this.state.val1y - 5) <= 5) &&
-          <h1 className="hint">您当前的valence值为：{ this.state.val1x }， arousal值为：{ this.state.val1y }</h1>
+          <h1 className="hint">您当前的Valence(愉悦度)值为：{ this.state.val1x }， Arousal(兴奋度)值为：{ this.state.val1y }</h1>
         }
         {(Math.abs(this.state.val1x) > 5 || Math.abs(this.state.val1y - 5) > 5) &&
           <h1 className="hint hintsm" style={{color: this.state.color}}>{"请用鼠标点击面板输入一个有效值"}{this.state.imgHeight < 600 && <br />}{"（-10 <= arousal, valence <= 10）"}</h1>
         }
-        <img src={RDot} style={{ position: 'absolute', top: this.state.y1 + 'px', left: this.state.x1 + 'px', display: this.state.rdotdisplay }} width={20} height={20}/>
-        <img src={BDot} style={{ position: 'absolute', top: this.props.top + 'px', left: this.props.left + 'px', display: this.props.display }} width={20} height={20}/>
+        <img src={BDot} style={{ position: 'absolute', top: this.props.top + 'px', left: this.props.left + 'px', display: this.props.display }} width={20} height={20} alt="red dot"/>
+        <img src={RDot} style={{ position: 'absolute', top: this.state.y1 + 'px', left: this.state.x1 + 'px', display: this.state.rdotdisplay }} width={20} height={20} alt="blue dot"/>
         {(this.props.step <= 9 && this.props.step > 1) &&
           <div>
             {!this.state.rateNotFilled &&
@@ -134,6 +129,22 @@ class VAcanvas extends Component {
               <option value={3}> 一般般</option>
               <option value={4}> 比较满意</option>
               <option value={5}> 非常满意</option>
+            </select>
+            <br />
+            <br />
+            {!this.state.rateNotFilled &&
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择您对这首歌的熟悉程度：</p>
+            }
+            {this.state.rateNotFilled &&
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择您对这首歌的熟悉程度：</p>
+            }
+            <select value={this.state.fam} onChange={this.selectFam} style={{display: "inline"}}>
+              <option value={0}> （空）</option>
+              <option value={1}> 不熟悉</option>
+              <option value={2}> 可能听过</option>
+              <option value={3}> 比较熟悉</option>
+              <option value={4}> 非常熟悉</option>
+              <option value={5}> 熟悉且喜欢</option>
             </select>
             <br />
             <br />

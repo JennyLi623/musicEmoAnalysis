@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 import Config from "../Config.json";
 
-const { baseUrl, pollLimit, gatewayEPs } = Config;
+const { baseUrl } = Config;
 
 const HTTPMethod = Object.freeze({
   GET: "GET",
@@ -54,7 +54,7 @@ async function sendHTTP(method, path, data) {
 
   return await response;
 }
-
+/*
 async function getReport(response) {
   const axiosConfig = {
     headers: { transaction_id: response.headers["transaction_id"] }
@@ -73,21 +73,22 @@ async function pollForReport(axiosConfig) {
       /************************************************
             TODO More Robust checking for response
       ************************************************/
-
+/*
       return response;
     } else await timeOut();
   }
 
   return undefined;
 }
-
+*/
+/*
 async function timeOut() {
   return new Promise(resolve => {
     let pollingLimit = 100;
     setTimeout(() => resolve(), pollingLimit);
   });
 }
-
+*/
 export default {
   initSocket,
   GET,
