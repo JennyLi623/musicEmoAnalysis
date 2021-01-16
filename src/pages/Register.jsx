@@ -168,14 +168,12 @@ class Register extends Component {
           </select>
           <br />
           <br />
-          <label className="label" style={{display: "inline"}}>最爱哪种类型:</label>
+          <label className="label" style={{display: "inline"}}>以下最爱哪种类型:</label>
           <select value={utype} onChange={this.selectUType} style={{display: "inline"}}>
             <option value={0}> （空）</option>
-            <option value={1}> 雅尼音乐</option>
-            <option value={2}> 古典音乐</option>
-            <option value={3}> 流行乐</option>
-            <option value={4}> 其他</option>
-            <option value={5}> 无特别喜好</option>
+            <option value={1}> 古典音乐</option>
+            <option value={2}> 流行乐</option>
+            <option value={3}> 雅尼音乐</option>
           </select>
           <br />
           <br />
