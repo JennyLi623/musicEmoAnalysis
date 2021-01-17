@@ -239,7 +239,7 @@ class Home extends Component {
 
           <div>
           {this.props.expNum <= 5 &&
-            <Button className="testButtonDisplay" onClick={() => this.startTest()}>开始试验</Button>
+            <Button className="testButtonDisplay" onClick={() => this.startTest()}>开始实验</Button>
           }
           {this.props.expNum > 5 &&
             <Button className="testButtonDisplay" onClick={() => this.props.handleLogOut()}>退出登录</Button>

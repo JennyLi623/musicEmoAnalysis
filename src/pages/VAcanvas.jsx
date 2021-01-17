@@ -34,7 +34,7 @@ class VAcanvas extends Component {
 
   componentDidMount() {
     var w = this.props.width;
-    console.log("w: " + w);
+    //console.log("w: " + w);
     if (w < 800) {
       this.setState({imgHeight: w, imgWidth: w});
     }
@@ -75,7 +75,7 @@ class VAcanvas extends Component {
     var x = e.nativeEvent.offsetX + e.nativeEvent.offsetX % parseInt(this.state.imgWidth / 20) - (e.nativeEvent.offsetX + e.nativeEvent.offsetX % parseInt(this.state.imgWidth / 20)) % parseInt(this.state.imgWidth / 10) - 10;
     var y = e.nativeEvent.offsetY + e.nativeEvent.offsetY % parseInt(this.state.imgHeight / 20) - (e.nativeEvent.offsetY + e.nativeEvent.offsetY % parseInt(this.state.imgHeight / 20)) % parseInt(this.state.imgHeight / 10) -10;
     this.setState({ x1: x, y1: y });
-    console.log(x, y);
+    //console.log(x, y);
     //this.setState({x1: x, y1: y });
     this.setState({ val1x: parseInt(x / (this.state.imgWidth / 11)) - 5, val1y: 10 - parseInt(y / (this.state.imgHeight / 11))});
     if (Math.abs(parseInt((x) / (this.state.imgWidth / 11)) - 5) <= 5 && Math.abs(10 - parseInt(y / (this.state.imgHeight / 11)) - 5) <= 5) {
@@ -86,7 +86,7 @@ class VAcanvas extends Component {
   }
 
   handleButtonClick = () => {
-    console.log("handleButtonClick");
+    //console.log("handleButtonClick");
     if (this.state.val1x < -5 || this.state.val1x > 5 || this.state.val1y < 0 || this.state.val1x > 10) {
       this.setState({canvasNotFilled: true});
       this.setState({color: "#dd0000"});
@@ -95,7 +95,7 @@ class VAcanvas extends Component {
       this.setState({rateNotFilled: true});
     }
     if ((this.state.val1x >= -5 && this.state.val1x <= 5 && this.state.val1y >= 0 && this.state.val1y <= 10) && (this.props.step === 1 || this.state.rate !== 0)) {
-      console.log(this.state.val1x + this.state.val1x);
+      //console.log(this.state.val1x + this.state.val1x);
       this.props.processVA(this.state.y1, this.state.x1, this.state.val1x, this.state.val1y, this.state.rate, this.state.fam);
     }
 
@@ -110,7 +110,7 @@ class VAcanvas extends Component {
           <h1 className="hint">您当前的Valence(愉悦度)值为：{ this.state.val1x }， Arousal(兴奋度)值为：{ this.state.val1y }</h1>
         }
         {(Math.abs(this.state.val1x) > 5 || Math.abs(this.state.val1y - 5) > 5) &&
-          <h1 className="hint hintsm" style={{color: this.state.color}}>{"请用鼠标点击面板输入一个有效值"}{this.state.imgHeight < 600 && <br />}{"（-10 <= arousal, valence <= 10）"}</h1>
+          <h1 className="hint hintsm" style={{color: this.state.color}}>{"***请用鼠标点击面板输入一个有效值***"}</h1>
         }
         <img src={BDot} style={{ position: 'absolute', top: this.props.top + 'px', left: this.props.left + 'px', display: this.props.display }} width={20} height={20} alt="red dot"/>
         <img src={RDot} style={{ position: 'absolute', top: this.state.y1 + 'px', left: this.state.x1 + 'px', display: this.state.rdotdisplay }} width={20} height={20} alt="blue dot"/>
@@ -153,7 +153,7 @@ class VAcanvas extends Component {
         }
         {this.props.step <= 9 &&
           <div>
-            <Button className="testButtonDisplay" onClick={() => this.handleButtonClick()}>继续试验</Button>
+            <Button className="testButtonDisplay" onClick={() => this.handleButtonClick()}>继续实验</Button>
           </div>
         }
 
