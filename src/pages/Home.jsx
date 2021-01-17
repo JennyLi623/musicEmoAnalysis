@@ -56,7 +56,7 @@ class Home extends Component {
 
     this.setState({needNewDate: true});
     var date = new Date();
-    date.setDate(date.getDate() + 8);
+    date.setDate(date.getDate() + 6);
     //console.log(date);
     this.setState({newDate: date});
     window.addEventListener('resize', this.updateWindowDimensions);
@@ -212,7 +212,7 @@ class Home extends Component {
               实验将分为<span className="numOfTest">5</span> 轮进行，
               {this.state.width >=600 && <br/>}
               我们希望您在<span className="numOfTest">1</span> 天之中完成不多余<span className="numOfTest">1</span> 轮实验，{this.state.width >=600 && <br/>}
-              并在<span className="numOfTest">7</span> 天之内完成所有实验。<br/>
+              并在<span className="numOfTest">5</span> 天之内完成所有实验。<br/>
               每<span className="numOfTest">1</span> 轮实验开始前我们都将请您输入您当下的情绪数据（采用<Link to="/faq">V-A模型</Link>），{this.state.width >=600 && <br/>}
               之后您将听到<span className="numOfTest">4</span> 首不同的钢琴曲。<br/>
               如果音乐唤起了您的部分记忆或情绪，{this.state.width >=600 && <br/>}

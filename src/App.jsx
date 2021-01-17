@@ -36,7 +36,7 @@ class App extends Component {
     //console.log(datetime);
     this.setState({startDate: new Date(datetime.replace(' ','T') + 'Z')});
     var date = new Date(datetime.replace(' ','T') + 'Z');
-    date.setDate(date.getDate() + 8);
+    date.setDate(date.getDate() + 6);
     this.setState({endDate: date});
     if (music_num !== 0) {
       this.setState({ music_num: music_num });
