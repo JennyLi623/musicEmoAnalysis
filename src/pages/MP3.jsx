@@ -94,7 +94,7 @@ class MP3 extends Component {
         <br />
         <InputGroup variant="dark">
           <InputGroup.Prepend>
-            <InputGroup.Text>音乐记忆</InputGroup.Text>
+            <InputGroup.Text>音乐回忆</InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl as="textarea" aria-label="With textarea" onChange={this.handleChange} value={this.state.comment}/>
         </InputGroup>
