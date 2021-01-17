@@ -10,7 +10,7 @@ class NavBar extends Component {
     const { handleLogOut, loggedIn, name } = this.props;
     return (
       <Navbar style={{background: "#141a20"}} variant="dark" expand="lg">
-        <Link to="/"><Navbar.Brand>爱么音乐</Navbar.Brand></Link>
+        <Link to="/"><Navbar.Brand>音乐推荐实验</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <NavLink to="/faq" className="navbar-nav nav-link mr-auto" style={{"color": "#999999"}}>
