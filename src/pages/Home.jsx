@@ -211,7 +211,7 @@ class Home extends Component {
               本实验旨在测试音乐对人情绪的影响。<br/>
               实验将分为<span className="numOfTest">5</span> 轮进行，
               {this.state.width >=600 && <br/>}
-              我们希望您在<span className="numOfTest">1</span> 天之中完成不多余<span className="numOfTest">1</span> 轮实验，{this.state.width >=600 && <br/>}
+              我们希望您在<span className="numOfTest">1</span> 天之中完成不多于<span className="numOfTest">1</span> 轮实验，{this.state.width >=600 && <br/>}
               并在<span className="numOfTest">5</span> 天之内完成所有实验。<br/>
               每<span className="numOfTest">1</span> 轮实验开始前我们都将请您输入您当下的情绪数据（采用<Link to="/faq">V-A模型</Link>），{this.state.width >=600 && <br/>}
               之后您将听到<span className="numOfTest">4</span> 首不同的钢琴曲。<br/>
@@ -289,7 +289,7 @@ class Home extends Component {
             <br />
             <br />
             <div>
-              <Button className="testButtonDisplay" onClick={() => this.endTest()}>退出登录</Button>
+              <Button className="testButtonDisplay" onClick={() => this.endTest()}>完成实验并退出登录</Button>
             </div>
           </div>
         </div>
