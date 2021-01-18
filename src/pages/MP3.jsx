@@ -94,6 +94,7 @@ class MP3 extends Component {
           Your browser does not support the <code>audio</code> element.
         </audio>
         <br />
+
         <br />
         <InputGroup variant="dark">
           <InputGroup.Prepend>
@@ -103,7 +104,13 @@ class MP3 extends Component {
         </InputGroup>
         <br />
         {!this.state.writingComment && this.state.status === 0 &&
-          <p>——页面将在钢琴曲播放完毕后自动跳转——</p>
+          <div>
+            <p>——页面将在钢琴曲播放完毕后自动跳转——</p>
+            <br />
+            <br />
+            <p>如果音乐无法正常加载，您可以点击<a href={this.props.url} target="_blank" rel="noopener noreferrer">此处</a>获取音源</p>
+            <p>并在听完后点击<a onClick={()=> this.props.audioEnd(this.state.writingComment)} style={{"color": "blue"}}>此处</a>进入下一环节</p>
+          </div>
         }
         {this.state.writingComment && this.state.status === 0 &&
           <p>——请在完成描述后点击<span onClick={() => this.nextStage()} style={{"color": "blue"}}>此处</span>进入下一环节——</p>
