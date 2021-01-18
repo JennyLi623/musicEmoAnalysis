@@ -79,7 +79,10 @@ class MP3 extends Component {
         //console.log(response);
         this.props.audioEnd(false);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        this.props.audioEnd(false);
+      });
   }
 
   render() {
