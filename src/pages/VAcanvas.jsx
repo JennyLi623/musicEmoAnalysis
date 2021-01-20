@@ -117,10 +117,10 @@ class VAcanvas extends Component {
         {(this.props.step <= 9 && this.props.step > 1) &&
           <div>
             {!this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为这首歌的推荐评分：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为这首钢琴曲的推荐评分：</p>
             }
             {this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为这首歌的推荐评分：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为这首钢琴曲的推荐评分：</p>
             }
             <select value={this.state.rate} onChange={this.selectRate} style={{display: "inline"}}>
               <option value={0}> （空）</option>
@@ -133,10 +133,10 @@ class VAcanvas extends Component {
             <br />
             <br />
             {!this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择您对这首歌的熟悉程度：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择您对这首钢琴曲的熟悉程度：</p>
             }
             {this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择您对这首歌的熟悉程度：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择您对这首钢琴曲的熟悉程度：</p>
             }
             <select value={this.state.fam} onChange={this.selectFam} style={{display: "inline"}}>
               <option value={0}> （空）</option>
