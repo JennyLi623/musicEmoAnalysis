@@ -17,20 +17,20 @@ class NavBar extends Component {
               项目介绍
           </NavLink>
           <Nav>
-            {!loggedIn &&
+            {!loggedIn && false &&
                 <NavLink to="/login" className="nav-link">
                   登录
                 </NavLink>
             }
-            {!loggedIn &&
+            {!loggedIn && false &&
               <NavLink to="/register" className="nav-link">
                 注册
               </NavLink>
             }
-            {loggedIn &&
+            {loggedIn && false &&
                 <Nav.Link>{"你好，"+name}</Nav.Link>
             }
-            {loggedIn &&
+            {loggedIn && false &&
                 <Nav.Link onClick={() => handleLogOut()}>退出</Nav.Link>
             }
           </Nav>

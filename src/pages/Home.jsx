@@ -178,6 +178,13 @@ class Home extends Component {
   }
 
   render() {
+    if (true) {
+      return(
+        <div className="mainPage">
+            <p className='sTitle'>本轮实验已经结束，<br />谢谢大家的支持与配合！</p>
+        </div>
+      );
+    }
     if(this.props.loggedIn === false) {
       return(
         <div style={{"textAlign": "center"}}>
@@ -257,10 +264,10 @@ class Home extends Component {
             <p className='hint'>当前实验进度为 {this.props.expNum} / 5， <br /><br />请于{isNaN(this.props.endDate.getMonth()) ? this.state.newDate.getMonth() + 1 : this.props.endDate.getMonth() + 1}月{isNaN(this.props.endDate.getDate()) ? this.state.newDate.getDate() : this.props.endDate.getDate()}日之前完成剩余部分</p>
             <div style={{display: "block"}}>
               {this.state.favorite === 0 &&
-                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择本轮您最满意的曲目：</p>
+                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择本轮您最满意的钢琴曲：</p>
               }
               {this.state.favorite !== 0 &&
-                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择本轮您最满意的曲目：</p>
+                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择本轮您最满意的钢琴曲：</p>
               }
               <select value={this.state.favorite} onChange={this.selectFavoriteSong} style={{display: "inline"}}>
                 <option value={0}> （空）</option>
@@ -272,10 +279,10 @@ class Home extends Component {
               <br />
               <br />
               {this.state.overallRate === 0 &&
-                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为本轮推荐的曲目做总评分：</p>
+                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为本轮推荐的钢琴曲做总评分：</p>
               }
               {this.state.overallRate !== 0 &&
-                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为本轮推荐的曲目做总评分：</p>
+                <p className="hint" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为本轮推荐的钢琴曲做总评分：</p>
               }
               <select value={this.state.overallRate} onChange={this.selectOverallRate} style={{display: "inline"}}>
                 <option value={0}> （空）</option>
@@ -299,7 +306,7 @@ class Home extends Component {
       return(
         <div className="mainPage">
           <div className="inTest">
-          <p className='sTitle'>恭喜您已完成本次实验的听歌部分，<br />请完成以下问卷以结束实验：</p>
+          <p className='sTitle'>恭喜您已完成本次实验听钢琴曲的部分，<br />请完成以下问卷以结束实验：</p>
           <div style={{display: "block", width: this.state.canvasWidth+"px", margin: "auto"}}>
           {/*
           <VAcanvas width={this.state.canvasWidth} endTest = {this.endTest} step={this.state.step} display="inherit" top={this.state.top === -50? this.state.initop : this.state.top} left={this.state.left === -50? this.state.inileft : this.state.left}}/>
@@ -325,7 +332,7 @@ class Home extends Component {
       return(
         <div className="mainPage">
           <div className="inTest">
-            <p className='sTitle'>请听歌曲 {this.state.songnum}/ 4</p>
+            <p className='sTitle'>请听钢琴曲 {this.state.songnum}/ 4</p>
             <div style={{display: "block", width: this.state.canvasWidth+"px", margin: "auto"}}>
               <MP3 width={this.state.canvasWidth} audioEnd = {this.audioEnd} url={this.state.url} expNum={this.props.expNum} songNum={this.state.songnum} uId={this.props.uId}/>
             </div>
