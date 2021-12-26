@@ -164,7 +164,6 @@ class Register extends Component {
             <option value={0}> （空）</option>
             <option value={1}> 男</option>
             <option value={2}> 女</option>
-            <option value={3}> 其他</option>
           </select>
           <br />
           <br />

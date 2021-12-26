@@ -77,8 +77,8 @@ class VAcanvas extends Component {
     this.setState({ x1: x, y1: y });
     //console.log(x, y);
     //this.setState({x1: x, y1: y });
-    this.setState({ val1x: parseInt(x / (this.state.imgWidth / 11)) - 5, val1y: 10 - parseInt(y / (this.state.imgHeight / 11))});
-    if (Math.abs(parseInt((x) / (this.state.imgWidth / 11)) - 5) <= 5 && Math.abs(10 - parseInt(y / (this.state.imgHeight / 11)) - 5) <= 5) {
+    this.setState({ val1x: parseInt(x / (this.state.imgWidth / 11)) - 5, val1y: 10 - parseInt(0.2 + y / (this.state.imgHeight / 11))});
+    if (Math.abs(parseInt((x) / (this.state.imgWidth / 11)) - 5) <= 5 && Math.abs(10 - parseInt(0.2 + y / (this.state.imgHeight / 11)) - 5) <= 5) {
       this.setState({ rdotdisplay: "" });
     } else {
       this.setState({ rdotdisplay: "none" });
@@ -117,10 +117,10 @@ class VAcanvas extends Component {
         {(this.props.step <= 9 && this.props.step > 1) &&
           <div>
             {!this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为这首钢琴曲的推荐评分：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请为这段音乐的推荐评分：</p>
             }
             {this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为这首钢琴曲的推荐评分：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请为这段音乐的推荐评分：</p>
             }
             <select value={this.state.rate} onChange={this.selectRate} style={{display: "inline"}}>
               <option value={0}> （空）</option>
@@ -133,10 +133,10 @@ class VAcanvas extends Component {
             <br />
             <br />
             {!this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择您对这首钢琴曲的熟悉程度：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline"}}>请选择您对这段音乐的熟悉程度：</p>
             }
             {this.state.rateNotFilled &&
-              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择您对这首钢琴曲的熟悉程度：</p>
+              <p className="hint hintsm" style={{marginBottom: "0px", paddingBottom: "0px", display: "inline", color: "#dd0000"}}>请选择您对这段音乐的熟悉程度：</p>
             }
             <select value={this.state.fam} onChange={this.selectFam} style={{display: "inline"}}>
               <option value={0}> （空）</option>

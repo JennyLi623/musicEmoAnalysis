@@ -105,7 +105,7 @@ class MP3 extends Component {
         <br />
         {!this.state.writingComment && this.state.status === 0 &&
           <div>
-            <p>——页面将在钢琴曲播放完毕后自动跳转——</p>
+            <p>——请在音乐结束页面自动跳转前开始输入回忆——</p>
             <br />
             <br />
             <p>如果音乐无法正常加载，您可以点击<a href={this.props.url} target="_blank" rel="noopener noreferrer">此处</a>获取音源</p>
