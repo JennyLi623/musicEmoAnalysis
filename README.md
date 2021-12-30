@@ -1,4 +1,4 @@
-This project was created for a research study. For anyone who hope to use some of the cod, please cite the project with
+This project was created for a research study. For anyone who hope to use some of the code, please cite the project with
 #### Luntian Mou, Jueying Li, Juehui Li, Feng Gao, Ramesh Jain, Baocai Yin. MemoMusic: A Personalized Music Recommendation Framework Based on Emotion and Memory. IEEE 4th International Conference on Multimedia Information Processing and Retrieval (MIPR), Sept. 2021, DOI: 10.1109/MIPR51284.2021.00064
 
 ## Documentation:
